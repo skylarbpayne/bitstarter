@@ -57,7 +57,7 @@ var checkHtmlFile = function(htmlfile, checksfile) {
 };
 
 var checkUrl = function(response, checksfile) {
-    $(response);
+    $ = cheerio.load(response);
     var checks = loadChecks(checksfile).sort();
     var out = {};
     for(var ii in checks) {
@@ -82,7 +82,7 @@ if(require.main == module) {
     
     if(program.url) {
 	//The user entered a URL that should be checked.
-	rest.get(url).on('complete', function(response) {
+	rest.get(program.url).on('complete', function(response) {
 	    var checkJson = checkUrl(response, program.checks);
 	    var outJson = JSON.stringify(checkJson, null, 4);
 	    console.log(outJson);
